@@ -3,9 +3,9 @@
   "version": "5.0.0",
   "private": true,
   "scripts": {
-    "dev": "next",
+    "dev": "node server.js",
     "build": "next build",
-    "start": "next start"
+    "start": "NODE_ENV=production node server.js"
   },
   "dependencies": {
     "@redq/reuse-modal": "1.2.4-beta.0.63",
@@ -13,6 +13,8 @@
     "@stripe/stripe-js": "^1.11.0",
     "@styled-system/theme-get": "^5.1.2",
     "cookie": "^0.4.1",
+    "express": "^4.17.1",
+    "next": "^10.0.7",
     "currency.js": "^2.0.3",
     "formik": "^2.2.1",
     "fuse.js": "^6.4.3",
