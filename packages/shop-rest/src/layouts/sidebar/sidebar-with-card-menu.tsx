@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
+import { useSelector } from 'react-redux';
 import { CardMenu } from 'components/card-menu';
 import { useRouter } from 'next/router';
 import ErrorMessage from 'components/error-message/error-message';
@@ -6,8 +7,11 @@ import styled from 'styled-components';
 import Sticky from 'react-stickynode';
 import { Scrollbar } from 'components/scrollbar/scrollbar';
 import CategoryWalker from 'components/category-walker/category-walker';
-import useCategory from 'data/use-category';
-
+import NoResultFound from 'components/no-result/no-result';
+import { Loading, ButtonWrapper } from './sidebar.style';
+import { FormattedMessage } from 'react-intl';
+import { Button } from 'components/button/button';
+import { categoriesSelector } from 'state/categories/reducer';
 const Aside = styled.aside({
   width: '300px',
   position: 'fixed',
@@ -48,14 +52,18 @@ interface Props {
   type: string;
 }
 
+const per_page = 10;
+
 export const SidebarWithCardMenu = ({ type }: Props) => {
   const router = useRouter();
-  const { data, error } = useCategory({ type });
-
-  if (error) return <ErrorMessage message={error.message} />;
-  if (!data) return null;
+  const { categories, loading, error } = useSelector(categoriesSelector);
+  const [data, setData] = useState(null);
   const { pathname, query } = router;
   const selectedQueries = query.category;
+
+  useEffect(() => {
+    setData(categories)
+  }, [categories])
 
   const onCategoryClick = (slug: string) => {
     router.push({
@@ -67,7 +75,7 @@ export const SidebarWithCardMenu = ({ type }: Props) => {
   return (
     <React.Fragment>
       <MobileOnly>
-        <Sticky top={67}>
+        {data && <Sticky top={67}>
           <CategoryWalker
             style={{
               backgroundColor: '#ffffff',
@@ -83,30 +91,31 @@ export const SidebarWithCardMenu = ({ type }: Props) => {
               />
             </CardMenuWrapper>
           </CategoryWalker>
-        </Sticky>
+        </Sticky>}
       </MobileOnly>
 
       <DesktopOnly>
-        {/* <Sticky top={110}> */}
         <Aside>
           <Scrollbar
-            style={{ height: '100%', maxHeight: '100%' }}
+            style={{ maxHeight: 'calc(100% - 70px)' }}
             options={{
               scrollbars: {
                 visibility: 'hidden',
               },
             }}
           >
-            <CardMenuWrapper>
+            {error && <ErrorMessage message="Loading categories failure" />}
+            {data?.length === 0 && !loading && <NoResultFound />}
+            {loading && <Loading />}
+            {data && data.length > 0 && <CardMenuWrapper>
               <CardMenu
                 data={data}
                 onClick={onCategoryClick}
                 active={selectedQueries}
               />
-            </CardMenuWrapper>
+            </CardMenuWrapper>}
           </Scrollbar>
         </Aside>
-        {/* </Sticky> */}
       </DesktopOnly>
     </React.Fragment>
   );

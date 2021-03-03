@@ -1,12 +1,20 @@
 import React from 'react';
-import { ProductGrid } from 'components/product-grid/product-grid-three';
-import { Modal } from '@redq/reuse-modal';
 import dynamic from 'next/dynamic';
+import { Modal } from '@redq/reuse-modal';
+// Static Data Import Here
+import { useRefScroll } from 'utils/use-ref-scroll';
+import { ModalProvider } from 'contexts/modal/modal.provider';
 import styled from 'styled-components';
 import css from '@styled-system/css';
 import { SidebarWithCardMenu } from 'layouts/sidebar/sidebar-with-card-menu';
 import GroceryImgOne from 'assets/images/banner/grocery-banner-img-one.jpg';
 import GroceryImgTwo from 'assets/images/banner/grocery-banner-img-two.jpg';
+
+// import { ProductGrid } from 'components/product-grid/product-grid-three';
+
+const Products = dynamic(() =>
+  import('components/product-grid/product-list/product-list')
+);
 
 const Banner = dynamic(() => import('components/banner/banner-two'), {
   ssr: false,
@@ -27,23 +35,6 @@ const bannerSlides = [
   },
 ];
 
-const PAGE_TYPE = 'grocery';
-
-export default function GroceryTwoPage({ deviceType }) {
-  return (
-    <Modal>
-      <ContentArea>
-        <SidebarWithCardMenu type={PAGE_TYPE} />
-        <main>
-          <Banner data={bannerSlides} />
-          <ProductGrid type={PAGE_TYPE} />
-        </main>
-      </ContentArea>
-      <CartPopUp deviceType={deviceType} />
-    </Modal>
-  );
-}
-
 const ContentArea = styled.div<any>(
   css({
     overflow: 'hidden',
@@ -60,3 +51,39 @@ const ContentArea = styled.div<any>(
     backgroundColor: '#f9f9f9',
   })
 );
+
+const GroceryTwoPage: React.FC<any> = ({ deviceType }) => {
+  const { elRef: targetRef, scroll } = useRefScroll({
+    percentOfElement: 0,
+    percentOfContainer: 0,
+    offsetPX: -110,
+  });
+
+  const PAGE_TYPE = 'grocery';
+
+  return (
+    <>
+      <ModalProvider>
+        <Modal>
+        <ContentArea>
+          <SidebarWithCardMenu type={PAGE_TYPE} />
+          <main>
+            <Banner data={bannerSlides} />
+            {/* <ProductGrid type={PAGE_TYPE} /> */}
+            <div ref={targetRef}>
+              <Products
+                type={PAGE_TYPE}
+                deviceType={deviceType}
+                fetchLimit={20}
+              />
+            </div>
+          </main>
+        </ContentArea>
+        <CartPopUp deviceType={deviceType} />
+      </Modal>
+      </ModalProvider>
+    </>
+  );
+};
+
+export default GroceryTwoPage;

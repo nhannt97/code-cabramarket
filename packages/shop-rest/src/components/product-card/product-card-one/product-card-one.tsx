@@ -136,7 +136,7 @@ const ProductCard: React.FC<ProductCardProps> = ({
       </ProductImageWrapper>
       <ProductInfo>
         <h3 className="product-title">{title}</h3>
-        <span className="product-weight">{weight}</span>
+        
         <div className="product-meta">
           <div className="productPriceWrapper">
             {discountInPercent ? (

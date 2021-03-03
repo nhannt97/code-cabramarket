@@ -1,3 +1,4 @@
+import { Provider as ReduxProvider } from 'react-redux'
 import { ThemeProvider } from 'styled-components';
 import { defaultTheme } from 'site-settings/site-theme/default';
 import { AppProvider } from 'contexts/app/app.provider';
@@ -6,6 +7,8 @@ import { LanguageProvider } from 'contexts/language/language.provider';
 import { CartProvider } from 'contexts/cart/use-cart';
 import { useMedia } from 'utils/use-media';
 import AppLayout from 'layouts/app-layout';
+
+import { store } from 'state/index';
 
 // External CSS import here
 import 'swiper/swiper-bundle.min.css';
@@ -33,19 +36,21 @@ export default function ExtendedApp({ Component, pageProps }) {
   return (
     <ThemeProvider theme={defaultTheme}>
       <LanguageProvider messages={messages}>
-        <CartProvider>
-          <AppProvider>
-            <AuthProvider>
-              <AppLayout>
-                <Component
-                  {...pageProps}
-                  deviceType={{ mobile, tablet, desktop }}
-                />
-              </AppLayout>
-              <GlobalStyle />
-            </AuthProvider>
-          </AppProvider>
-        </CartProvider>
+        <ReduxProvider store={store}>
+          <CartProvider>
+            <AppProvider>
+              <AuthProvider>
+                <AppLayout>
+                  <Component
+                    {...pageProps}
+                    deviceType={{ mobile, tablet, desktop }}
+                  />
+                </AppLayout>
+                <GlobalStyle />
+              </AuthProvider>
+            </AppProvider>
+          </CartProvider>
+        </ReduxProvider>
       </LanguageProvider>
     </ThemeProvider>
   );

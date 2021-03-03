@@ -27,11 +27,11 @@ const Footer = () => {
     <Box>
       <FormattedMessage
         id='siteFooter'
-        defaultMessage='PickBazar is a product of'
+        defaultMessage='Copyright © 2021 Cabramarket.com. |'
       />
       &nbsp;
       <a href='#' target='_blank'>
-        RedQ, Inc.
+        Cabramarket
       </a>
     </Box>
   );

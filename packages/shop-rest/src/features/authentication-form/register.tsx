@@ -42,6 +42,54 @@ export default function SignOutModal() {
             defaultMessage='Every fill is required in sign up'
           />
         </SubHeading>
+        <div style={{display: 'flex'}}>
+        <Input
+          type='text'
+          placeholder={intl.formatMessage({
+            id: 'firstName',
+            defaultMessage: 'First Name',
+          })}
+          height='48px'
+          backgroundColor='#F7F7F7'
+          mb='10px'
+          mr='10px'
+        />
+        <Input
+          type='email'
+          placeholder={intl.formatMessage({
+            id: 'lastName',
+            defaultMessage: 'Last Name',
+          })}
+          height='48px'
+          backgroundColor='#F7F7F7'
+          mb='10px'
+        />
+        </div>
+        <div style={{display: 'flex'}}>
+        <Input
+          type='text'
+          placeholder={intl.formatMessage({
+            id: 'numberPhone',
+            defaultMessage: 'Numbers Phone',
+          })}
+          height='48px'
+          backgroundColor='#F7F7F7'
+          mb='10px'
+        />
+        <Button variant='primary' size='small' width='30%' type='submit' height='48px'>
+          <FormattedMessage id='sendCode' defaultMessage='Send Code' />
+        </Button>
+        </div>
+        <Input
+          type='text'
+          placeholder={intl.formatMessage({
+            id: 'verificationCode',
+            defaultMessage: 'Verification Code',
+          })}
+          height='48px'
+          backgroundColor='#F7F7F7'
+          mb='10px'
+        />
         <Input
           type='text'
           placeholder={intl.formatMessage({

@@ -29,7 +29,7 @@ const Icon = ({ name, style }) => {
 export const CardMenu = ({ data, onClick, active, style }: Props) => {
   return (
     <>
-      {data.map(({ id, title, icon, slug }) => (
+      {data.map(({ id, name, icon, slug }) => (
         <CardBox
           key={id}
           onClick={() => onClick(slug)}
@@ -44,10 +44,18 @@ export const CardMenu = ({ data, onClick, active, style }: Props) => {
             justifyContent='center'
             display='flex'
           >
-            <Icon name={icon} style={{ height: 40, width: 'auto' }} />
+            {/* Data not icon, todo : if => render */}
+            {slug === "asian-groceries-thuc-pham-a-chau" && <img style={{ height: 60, width: 'auto' }} src="https://frontend.cabramarket.com/wp-content/uploads/2021/01/japanese_ramen_icon.png"></img>}
+            {slug === "asian-snacks-do-an-choi" && <img style={{ height: 60, width: 'auto' }} src="https://frontend.cabramarket.com/wp-content/uploads/2021/01/images.png"></img>}
+            {slug === "butcher" && <img style={{ height: 60, width: 'auto' }} src="https://frontend.cabramarket.com/wp-content/uploads/2021/01/butcher-meat-shop-icons-set-circle-eps-65362856-scaled.jpg"></img>}
+            {slug === "seafood-hai-san" && <img style={{ height: 60, width: 'auto' }} src="https://frontend.cabramarket.com/wp-content/uploads/2021/01/seafood-icons-set_1284-10822-scaled.jpg"></img>}
+            {slug === "frozen-do-dong-da" && <img style={{ height: 60, width: 'auto' }} src="https://frontend.cabramarket.com/wp-content/uploads/2021/01/frozen.png"></img>}
+            {slug === "drinks" && <img style={{ height: 60, width: 'auto' }} src="https://frontend.cabramarket.com/wp-content/uploads/2021/01/download-1.png"></img>}
+            {slug === "fresh-fruits-veg-trai-cay-va-rau" && <img style={{ height: 60, width: 'auto' }} src="https://frontend.cabramarket.com/wp-content/uploads/2021/01/fresh-vegetables-flat-style-icon-free-vector-scaled.jpg"></img>}
+            {slug === "sauce-cac-loai-dau-hao-nuoc-tuong-nuoc-mam" && <img style={{ height: 60, width: 'auto' }} src="https://frontend.cabramarket.com/wp-content/uploads/2021/01/images-1-1-scaled.jpg"></img>}
           </Box>
           <Text as='span' color='#212121' fontSize={14} fontWeight={600}>
-            {title}
+            {name}
           </Text>
         </CardBox>
       ))}

@@ -1,11 +1,7 @@
-const url = process.env.NEXT_PUBLIC_REST_API_ENDPOINT;
+import products from "./products.json";
 export async function getAllProducts() {
-  const products = await fetch(`${url}/api/products.json`);
-  return await products.json();
+  return products;
 }
 export async function getProductBySlug(slug) {
-  const products = await fetch(`${url}/api/products.json`).then((res) =>
-    res.json()
-  );
   return products.find((current) => current.slug === slug);
 }

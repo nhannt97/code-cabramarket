@@ -55,7 +55,6 @@ export default function useProducts(variables: Props) {
   //   localLimit = lmt;
   //   setFormattedData(true);
   // };
-  // console.log('object');
   // data: [
   //   ...state.data,
   //   ...state.total.slice(

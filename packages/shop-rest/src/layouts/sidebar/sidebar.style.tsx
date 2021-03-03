@@ -60,7 +60,11 @@ export const RequestMedicine = styled.span`
     border-radius: ${themeGet('radii.base', '6px')};
   }
 `;
-
+export const ButtonWrapper = styled.div`
+  display: flex;
+  justify-content: center;
+  margin-top: 15px;
+`;
 export const SidebarWrapper = styled.div`
   padding: 45px 0px;
   padding-top: 35px;

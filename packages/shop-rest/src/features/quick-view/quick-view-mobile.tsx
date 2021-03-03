@@ -53,13 +53,15 @@ const QuickViewMobile: React.FunctionComponent<QuickViewProps> = ({
     id,
     type,
     title,
-    unit,
+    weight,
     price,
     discountInPercent,
     salePrice,
     description,
     gallery,
     categories,
+    images,
+    name
   } = modalProps;
 
   const { isRtl } = useLocale();
@@ -90,7 +92,7 @@ const QuickViewMobile: React.FunctionComponent<QuickViewProps> = ({
         <ProductDetailsWrapper className='product-card' dir='ltr'>
           {!isRtl && (
             <ProductPreview>
-              <CarouselWithCustomDots items={gallery} deviceType={deviceType} />
+              <CarouselWithCustomDots items={images} deviceType={deviceType} />
               {!!discountInPercent && (
                 <DiscountPercent>{discountInPercent}%</DiscountPercent>
               )}
@@ -99,12 +101,10 @@ const QuickViewMobile: React.FunctionComponent<QuickViewProps> = ({
           <ProductInfoWrapper dir={isRtl ? 'rtl' : 'ltr'}>
             <ProductInfo>
               <ProductTitlePriceWrapper>
-                <ProductTitle>{title}</ProductTitle>
+                <ProductTitle>{name}</ProductTitle>
               </ProductTitlePriceWrapper>
-
-              <ProductWeight>{unit}</ProductWeight>
               <ProductDescription>
-                <ReadMore character={600}>{description}</ReadMore>
+                <div dangerouslySetInnerHTML={{__html: description}}></div>
               </ProductDescription>
 
               <ProductMeta>
@@ -115,7 +115,7 @@ const QuickViewMobile: React.FunctionComponent<QuickViewProps> = ({
                           onClick={() => onCategoryClick(item.slug)}
                           key={item.id}
                         >
-                          {item.title}
+                          {item.name}
                         </MetaItem>
                       ))
                     : ''}

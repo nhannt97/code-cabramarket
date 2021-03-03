@@ -37,7 +37,6 @@ const SettingsContent: React.FC<SettingsContentProps> = ({ deviceType }) => {
 
   const handleSave = async () => {
     const { name, email } = state;
-    console.log(name, email, 'name, email');
   };
 
   return (
